@@ -1,0 +1,189 @@
+# Reference GraphQL schema: any syntax herein is supported
+
+# Comments are not included in the generated output
+
+type ComplexType {
+  id: ID!
+  value: String
+}
+
+enum CustomEnum {
+  FISRT
+  SECOND
+  THIRD
+}
+
+input ComplexInputType {
+  id: ID!
+  value: String
+}
+
+scalar CustomScalar
+
+type TypeWithProps {
+  id: ID
+  str: String
+  int: Int
+  float: Float
+  bool: Boolean
+  enumeration: CustomEnum
+  complex: ComplexType
+  scalar: CustomScalar
+}
+
+type TypeWithVariousNullability {
+  nullable: String
+  nonNullable: String!
+  nullableListWithNullableElements: [String]
+  nonNullableListWithNullableElements: [String]!
+  nullableListWithNonNullableElements: [String!]
+  nonNullableListWithNonNullableElements: [String!]!
+}
+
+type TypeWithInputs {
+  scalar(scalarInput: String, complexParam: ComplexInputType): String
+  complex: ComplexType
+}
+
+union UnionType = ComplexType | TypeWithProps
+
+interface InterfaceType {
+  id: ID!
+  value: Int
+}
+
+type TypeImplementingInterface implements InterfaceType {
+  id: ID!
+  value: Int
+  localProp: String
+}
+
+interface AnotherInterfaceType {
+  anotherProp: String
+}
+
+type TypeImplementingMultipleInterfaces implements InterfaceType & AnotherInterfaceType {
+  id: ID!
+  value: Int
+  anotherProp: String
+  localProp: String
+}
+
+type TypeWithDeprecatedDirective {
+  deprecatedField: String @deprecated
+  deprecatedFieldWithReason: String @deprecated(reason: "Its no good")
+  """
+  Single-line comment
+  """
+  deprecatedFieldWithComment: String @deprecated
+  """
+  Single-line comment
+  """
+  deprecatedFieldWithReasonAndComment: String @deprecated(reason: "Its no good")
+  """
+  Multi-line
+  comment
+  """
+  deprecatedFieldWithMultilineComment: String @deprecated
+  """
+  Multi-line
+  comment
+  """
+  deprecatedFieldWithReasonAndMultilineComment: String
+    @deprecated(reason: "Its no good")
+}
+
+"""
+This is a type with a description
+"""
+type TypeWithDescription {
+  """
+  This is a property with a description
+  """
+  id: ID!
+  """
+  This is another property with a description
+  """
+  value(
+    """
+    This a scalar input param with a description
+    """
+    scalarParam: String
+    """
+    This a complex input param with a description
+    """
+    complexParam: ComplexInputType
+  ): String
+}
+
+"""
+This is an input type with a description
+"""
+input InputTypeWithDescription {
+  """
+  This is an input property with a description
+  """
+  id: ID!
+  """
+  This is an input property with a description
+  """
+  value: String
+}
+
+"""
+This is a type with
+a multi-line description
+"""
+type TypeWithMultilineDescription {
+  """
+  This is a field with
+  a multi-line description
+  """
+  field: String
+}
+
+"""
+This is an union type with a description
+"""
+union UnionTypeWithDescription = ComplexType | TypeWithProps
+"""
+This is an enum type with a description
+"""
+enum CustomEnumWithDescription {
+  """
+  This is an enum value with a description
+  """
+  FISRT
+  """
+  This is another enum value with a description
+  """
+  SECOND
+  """
+  This is a deprecated enum value
+  """
+  BAD_THING @deprecated(reason: "Its bad")
+}
+
+# The following features are allowed, but do not affect the generated output
+directive @customOperationDirective on QUERY | MUTATION | SUBSCRIPTION | FIELD | FRAGMENT_DEFINITION | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+directive @customSchemaDirective on SCHEMA | SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | INTERFACE | UNION | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+
+# Comments may contain backticks `
+
+"""
+Descriptions may contain ` backticks and \` escaped backticks
+"""
+type TypeWithDefaultValues {
+  """
+  Descriptions may \ backslashes and \\ double backslashes
+  """
+  id: ID! @customSchemaDirective
+  value(param: String = "Some Value"): String # Typescript types/interfaces do not support default values
+  backtick(
+    param: String = "Default value containg a ` backtick character"
+  ): String # Backticks are correctly escaped
+  escapedBacktick(
+    param: String = "Default values with \\` escaped backtick characters must include a double backslash"
+  ): String # Backticks are correctly escaped
+}

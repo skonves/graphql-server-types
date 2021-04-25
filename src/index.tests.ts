@@ -1,14 +1,26 @@
-import { reverseString } from './index';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { generateServerTypes } from './index';
 
-describe('example method', () => {
-  it('reverses as string', () => {
+describe('generateServerTypes', () => {
+  it('recreates a valid snapshot', async () => {
     // ARRANGE
-    const forward = 'some string';
+    const paths = [
+      join(process.cwd(), 'src', 'snapshot', 'schema.graphql'),
+      join(process.cwd(), '.prettierrc'),
+      join(process.cwd(), 'src', 'snapshot', 'types.ts'),
+    ];
+
+    const [schema, prettierConfig, snapshot] = paths.map((path) =>
+      readFileSync(path).toString('utf8'),
+    );
+
+    const prettierOptions = JSON.parse(prettierConfig);
 
     // ACT
-    const result = reverseString(forward);
+    const result = generateServerTypes(schema, { prettierOptions });
 
     // ASSERT
-    expect(result).toEqual('gnirts emos');
+    expect(result).toEqual(snapshot);
   });
 });
