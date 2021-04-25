@@ -2,25 +2,34 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { generateServerTypes } from './index';
 
+const schema = read('src', 'snapshot', 'schema.graphql');
+const prettierConfig = read('.prettierrc');
+const snapshot = read('src', 'snapshot', 'types.ts');
+
+const templateString = '<%= PACKAGE_VERSION %>';
+
 describe('generateServerTypes', () => {
-  it('recreates a valid snapshot', async () => {
+  it('starts with a snapshot with a version template string', () => {
+    // ASSERT
+    expect(snapshot).toContain(templateString);
+  });
+
+  it('recreates a valid snapshot', () => {
     // ARRANGE
-    const paths = [
-      join(process.cwd(), 'src', 'snapshot', 'schema.graphql'),
-      join(process.cwd(), '.prettierrc'),
-      join(process.cwd(), 'src', 'snapshot', 'types.ts'),
-    ];
-
-    const [schema, prettierConfig, snapshot] = paths.map((path) =>
-      readFileSync(path).toString('utf8'),
-    );
-
     const prettierOptions = JSON.parse(prettierConfig);
+    const snapshotWithCurrentVersion = snapshot.replace(
+      templateString,
+      require('../package.json').version,
+    );
 
     // ACT
     const result = generateServerTypes(schema, { prettierOptions });
 
     // ASSERT
-    expect(result).toEqual(snapshot);
+    expect(result).toEqual(snapshotWithCurrentVersion);
   });
 });
+
+function read(...relativePath: string[]): string {
+  return readFileSync(join(process.cwd(), ...relativePath)).toString('utf8');
+}

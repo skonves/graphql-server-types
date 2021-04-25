@@ -19,7 +19,8 @@
     "postbuild": "chmod +x ./lib/cli.js",
     "lint": "eslint src/**/*.ts",
     "pretest": "rimraf coverage/*",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "create-snapshot": "npm run build && node lib/snapshot/create-snapshot.js"
   },
   "keywords": [],
   "author": "",

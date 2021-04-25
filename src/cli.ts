@@ -24,7 +24,7 @@ const { argv } = yargs(hideBin(process.argv));
   if (schema) {
     const prettierOptions = await getPrettierOptions();
     try {
-      console.log(generateServerTypes(schema, { prettierOptions }));
+      process.stdout.write(generateServerTypes(schema, { prettierOptions }));
     } catch (ex) {
       error('Cannot generate server types', ex.message);
       process.exit(1);
