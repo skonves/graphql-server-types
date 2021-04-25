@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "files": [
     "lib/cli.js",
-    "lib/index.js"
+    "lib/index.d.ts",
+    "lib/index.js.map"
   ],
   "bin": {
     "generate-server-types": "./lib/cli.js"
