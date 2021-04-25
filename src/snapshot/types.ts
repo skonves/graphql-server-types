@@ -50,6 +50,7 @@ export interface TypeWithProps {
   enumeration: Field<CustomEnum | null>;
   complex: Field<ComplexType | null>;
   scalar: Field<CustomScalar | null>;
+  date: Field<Date | null>;
 }
 
 export interface TypeWithVariousNullability {
@@ -217,6 +218,9 @@ input ComplexInputType {
 
 scalar CustomScalar
 
+# special case that will not be imported from ./scalars
+scalar Date
+
 type TypeWithProps {
   id: ID
   str: String
@@ -226,6 +230,7 @@ type TypeWithProps {
   enumeration: CustomEnum
   complex: ComplexType
   scalar: CustomScalar
+  date: Date
 }
 
 type TypeWithVariousNullability {

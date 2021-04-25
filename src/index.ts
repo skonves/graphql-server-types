@@ -89,13 +89,14 @@ function generateScalarImports(
   document: DocumentNode,
   scalarsLocation: string,
 ): string {
-  const scalars = document.definitions.filter(isScalarTypeDefinitionn);
+  const scalars = document.definitions
+    .filter(isScalarTypeDefinitionn)
+    .map((s) => s.name.value)
+    .filter((name) => name !== 'Date')
+    .sort();
 
   return scalars.length
-    ? `import { ${scalars
-        .map((s) => s.name.value)
-        .sort()
-        .join(', ')} } from "${scalarsLocation}";`
+    ? `import { ${scalars.join(', ')} } from "${scalarsLocation}";`
     : '';
 }
 
