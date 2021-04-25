@@ -1,6 +1,6 @@
 {
   "name": "graphql-server-types",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Base project for creating a console application in Typescript",
   "main": "lib/index.js",
   "files": [
