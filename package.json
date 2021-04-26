@@ -22,7 +22,20 @@
     "prepack": "npm run build",
     "create-snapshot": "npm run build && node lib/snapshot/create-snapshot.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skonves/graphql-server-types.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skonves/graphql-server-types/issues"
+  },
+  "homepage": "https://github.com/skonves/graphql-server-types#readme",
+  "keywords": [
+    "graphql",
+    "typescript",
+    "server",
+    "generator"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
@@ -39,9 +52,11 @@
     "ts-jest": "^26.5.4",
     "typescript": "^4.2.4"
   },
+  "peerDependencies": {
+    "graphql": "^15.5.0"
+  },
   "dependencies": {
     "chalk": "^4.1.1",
-    "graphql": "^15.5.0",
     "prettier": "^2.2.1",
     "yargs": "^16.2.0"
   }
