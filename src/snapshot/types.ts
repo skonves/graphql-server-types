@@ -46,7 +46,7 @@ export interface TypeWithProps {
   str: Field<string | null>;
   int: Field<number | null>;
   float: Field<number | null>;
-  bool: Field<number | null>;
+  bool: Field<boolean | null>;
   enumeration: Field<CustomEnum | null>;
   complex: Field<ComplexType | null>;
   scalar: Field<CustomScalar | null>;

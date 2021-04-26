@@ -54,7 +54,7 @@ function getDefaultTypeMap(): Record<string, string> {
     String: 'string',
     Int: 'number',
     Float: 'number',
-    Boolean: 'number',
+    Boolean: 'boolean',
   };
 }
 
