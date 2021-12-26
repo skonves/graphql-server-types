@@ -54,7 +54,7 @@
     "typescript": "^4.2.4"
   },
   "peerDependencies": {
-    "graphql": "^15.5.0"
+    "graphql": ">=15.5.0"
   },
   "dependencies": {
     "chalk": "^4.1.1",
